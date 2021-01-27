@@ -4,9 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": ". ../.env && nodemon src/index.js"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "restify": "^8.5.1",
     "restify-errors": "^8.0.2"
   },
