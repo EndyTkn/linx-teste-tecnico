@@ -12,32 +12,19 @@ ProductSchema.path('id').validate(function(id) {
 
 
 ProductSchema.statics = {
-    compactFindById: function(id) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                console.log('Compact id: ', id);
-                const res = await this.findOne({id}).exec();
-                if (!res) reject(new errors.ResourceNotFoundError({statusCode: 404,}, "product not found"));
-                console.log(res);
-                let {name, price, status, categories} = res.props;
-
-                resolve({name, price, status, categories});
-            } catch(error) {
-                reject(error);
-            }
-        });
-    },
     compactFindList: function(ids) {
         return new Promise(async (resolve, reject) => {
             try {
-                let res = []
-                for (let id of ids) {
-                    console.log(id);
-                    res.push(await this.findOne({id}).exec());
-                }
-                if (res.length === 0)
+                let compactProducts;
+                let productsInfo = await this.find({id: {'$in': ids}}).exec()
+                if (productsInfo.length === 0)
                     reject(new errors.ResourceNotFoundError({statusCode: 404,}, "products not found"));
-                resolve(res);
+
+                compactProducts = productsInfo.map((prod) => {
+                    var {name, price, status, categories} = prod.props;
+                    return {name, price, status, categories};  
+                })
+                resolve(compactProducts);   
             } catch(error) {
                 reject(error);
             }

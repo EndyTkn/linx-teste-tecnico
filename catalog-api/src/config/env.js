@@ -4,5 +4,6 @@ module.exports = {
     'DB_NAME': process.env.CATALOG_DB_DATABASE,
     'DB_PORT': process.env.CATALOG_DB_PORT,
     'DB_USER': process.env.CATALOG_DB_USER,
-    'DB_PASS': process.env.CATALOG_DB_PASS
+    'DB_PASS': process.env.CATALOG_DB_PASS,
+    'DEBUG_MODE': process.env.CATALOG_DEBUG_MODE === 'true'
 }

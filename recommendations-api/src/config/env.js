@@ -5,5 +5,7 @@ module.exports = {
     'PRICE_REDUCTION_PATH': process.env.RECOMM_PRICE_REDUCTION_PATH,
     'CATALOG_HOST': process.env.CATALOG_HOST,
     'CATALOG_PORT': process.env.CATALOG_API_PORT,
-    'CATALOG_PROTOCOL': process.env.CATALOG_PROTOCOL
+    'CATALOG_PROTOCOL': process.env.CATALOG_PROTOCOL,
+    'DEBUG_MODE': process.env.RECOMM_DEBUG_MODE === 'true',
+    'CATALOG_PRODUCT_ROUTE': process.env.CATALOG_PRODUCT_ROUTE
 }

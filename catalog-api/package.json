@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": ". ./.env && nodemon ./src/index.js",
-    "seed": ". ./.env && node ./src/seed/index.js"
+    "dev": ". ../.env && nodemon ./src/index.js",
+    "seed": ". ../.env && node ./src/seed/index.js"
   },
   "dependencies": {
     "mongoose": "^5.11.13",

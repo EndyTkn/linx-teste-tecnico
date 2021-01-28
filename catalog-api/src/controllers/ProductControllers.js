@@ -3,28 +3,33 @@ const errors = require('restify-errors');
 const Product = mongoose.model('Product')
 
 class ProductController {
-    static async listByid(req, res, next) {
-        let {id} = req.params;
+    static async listByIds(req, res, next) {
+        let idParam = req.params.id;
+        let resFormat = req.params.resFormat;
         let ids;
-        try {
-            ids = JSON.parse(id);
-        } catch(error) {
-            ids = id;
-        }
+        let prod;
         
         try {
-            let prod;
-            if (typeof ids == Object)
+            if (!idParam)
+                throw (new errors.BadRequestError({statusCode: 400,}, 'valid id param is required!'));
+
+            ids = idParam.split(',');
+            if (resFormat === 'compact')
                 prod = await Product.compactFindList(ids);
-            else prod = await Product.compactFindById(ids);
-            res.send(prod);
+            else if (resFormat === 'complete')
+                prod = await Product.find({id: {'$in': ids}}).exec();
+            else
+                throw (new errors.BadRequestError({statusCode: 400}, 'a response format is required'))
+            if (prod.length === 1) return res.send(prod[0]);
+            return res.send(prod);
         } catch (error) {
-            next(error);
+            return next(error);
         }
     }
+
 }
 
 
 module.exports = (app) => {
-    app.get('/product/:id', ProductController.listByid);
+    app.get('/product/:resFormat', ProductController.listByIds);
 }
