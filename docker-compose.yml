@@ -26,7 +26,6 @@ services:
         rede:
           ipv4_address: 10.1.0.99
 
-
   linx_recommended:
     build: ./recommendations-api/.
     environment:

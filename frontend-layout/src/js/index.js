@@ -45,7 +45,7 @@ function getProducList(maxProducts, callback) {
             callback(data);
         })
         .catch((err) => {
-            console.log(err);
+            alert(err);
         });
 }
 
