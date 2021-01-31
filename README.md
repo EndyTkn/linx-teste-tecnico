@@ -79,11 +79,11 @@ http://localhost:5000/product/complete?id=123,456,321
 ```
 ### Resolução do item 1 dos diferenciais da api de catálogo
 
-A ideia da aplicação do teste era de uma api que recebendo um ID fornecia a informação do produto. Sabendo que o servidor de recomendação acessaria o servidor de catálogo para a listagem de produtos, então adicionei a possibilidade de utilizar uma lista de IDs para diminuir a quantidade de acesso ao servidor. Para não ter requisições caras ao SGBD eu utilize o ODM mongoose que fornece toda uma interface de gerenciamente ao banco, como também o operador 'in' afim de tornar a busca da lista de produtos uma busca única.
+A ideia da aplicação do teste era de uma api que recebendo um ID fornecia a informação do produto. Sabendo que o servidor de recomendação acessaria o servidor de catálogo para a listagem de produtos, então adicionei a possibilidade de utilizar uma lista de IDs para diminuir a quantidade de acessos ao servidor. Para não ter requisições caras ao SGBD eu utilize o ODM mongoose que fornece toda uma interface de gerenciamente ao banco, como também o operador 'in' afim de tornar a busca da lista de produtos uma busca única.
 
 ## API de Recomendações
 
-O servidor de recomendações se comunica com duas APIs, uma disponibilizada pelo teste para adquirir a lista de recomendação e a API de catálogo para adquirir as informações dos produtos. Possui uma única rota que recebe um parâmetro maxProducts que tem um valor padrão de 10, ele é responsável pela quantidades de produtos recomendados e não pode ser maior que 10.
+O servidor de recomendações se comunica com duas APIs, uma disponibilizada pelo teste para adquirir a lista de recomendação e a API de catálogo para adquirir as informações dos produtos. Possui uma única rota que recebe um parâmetro maxProducts que tem um valor padrão de 10, é responsável pela quantidades de produtos recomendados e não pode ser menor que 10.
 
 ### Endpoint:
 
@@ -110,8 +110,7 @@ Muitas vezes para fazer um software é necessário pesquisar sobre o ambiente e 
 
 * Resolução do Pior Caso (Não Implementada):
 
-Digamos que o wishlist fornece uma lista bem grande de IDs, então enviar todos os IDs em uma
-única requisição não é viável. Para resolver, definiria uma constante MAX_PRODUCT_PER_QUERY que define o número máximo de IDs que pudessem ser enviados para o servidor catálogo, enviaria uma quantidade MAX_PRODUCT_PER_QUERY de IDs para o servidor e pós isso verificaria quantos produtos adquiridos são válidos, se forem o suficiente para satisfazer o parâmetro maxProduct enviado na rota, então é validado e enviado para o cliente, caso contrário, é enviado mais IDs para o catálogo até satisfazer o maxProduct.
+Digamos que o wishlist fornece uma lista bem grande de IDs, então enviar todos os IDs em uma única requisição não é viável. Para resolver, definiria uma constante MAX_PRODUCT_PER_QUERY que define o número máximo de IDs que podem ser enviados para o servidor catálogo, enviaria uma quantidade MAX_PRODUCT_PER_QUERY de IDs para o servidor e pós isso verificaria quantos produtos adquiridos são válidos, se forem o suficiente para satisfazer o parâmetro maxProduct enviado na rota, então é validado e enviado para o cliente, caso contrário, é enviado mais IDs para o catálogo até satisfazer o maxProduct.
 
 ## Frontend
 
