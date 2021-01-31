@@ -27,9 +27,9 @@ cd catalog-api
 ```
 executar sprint para popular o servidor:
 ```sh
-yarn run seed  
+yarn && yarn run seed
 ou  
-npm run seed
+npm install && npm run seed
 ```
 entrar na pasta do front:
 ```sh
