@@ -4,7 +4,11 @@ require('../models/Product');
 
 const auth = env.DB_USER ? env.DB_USER + ':' + env.DB_PASS + '@' : "";
 const config = `mongodb://${auth}${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}`;
-
+if (!env.DB_HOST || !env.DB_PORT || !env.DB_NAME) {
+    console.log('ENV VARS IS REQUIRED');
+    process.exit()
+}
+console.log(config)
 try {
     mongoose.connect(config, {
         keepAlive: 1,
@@ -21,9 +25,11 @@ const startSeed = async () => {
     const catalog = require('./catalog.json');
     
     for (let product of catalog) {
-        let res = await seed(product);
+        await seed(product);
     }
     console.log('Completed');
+    process.exit()
+
 }
 
 const seed = async (product) => {

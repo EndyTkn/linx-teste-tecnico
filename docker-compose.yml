@@ -3,6 +3,9 @@ services:
   linx_catalog_db:
     image: amd64/mongo    
     restart: always
+    networks:
+        rede:
+          ipv4_address: 10.1.0.100
 
   linx_catalog:
     depends_on:
@@ -19,7 +22,7 @@ services:
       CATALOG_DEBUG_MODE: ${CATALOG_DEBUG_MODE}
     ports:
       - "5000:5000"
-  
+
   linx_recommended:
     build: ./recommendations-api/.
     environment:
@@ -34,3 +37,12 @@ services:
       CATALOG_PRODUCT_ROUTE: ${CATALOG_PRODUCT_ROUTE}
     ports:
       - "5051:5051"
+    
+
+networks:
+  rede:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.1.0.0/24
