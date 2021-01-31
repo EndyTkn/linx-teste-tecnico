@@ -22,6 +22,10 @@ services:
       CATALOG_DEBUG_MODE: ${CATALOG_DEBUG_MODE}
     ports:
       - "5000:5000"
+    networks:
+        rede:
+          ipv4_address: 10.1.0.99
+
 
   linx_recommended:
     build: ./recommendations-api/.
@@ -37,6 +41,9 @@ services:
       CATALOG_PRODUCT_ROUTE: ${CATALOG_PRODUCT_ROUTE}
     ports:
       - "5051:5051"
+    networks:
+        rede:
+          ipv4_address: 10.1.0.98
     
 
 networks:
