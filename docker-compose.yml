@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  linx_catalog_db:
+    image: amd64/mongo    
+    restart: always
+
+  linx_catalog:
+    depends_on:
+      - linx_catalog_db
+
+    build: ./catalog-api/.
+    environment:
+      CATALOG_API_PORT: ${CATALOG_API_PORT} 
+      CATALOG_DB_DATABASE: ${CATALOG_DB_DATABASE} 
+      CATALOG_DB_PORT: ${CATALOG_DB_PORT} 
+      CATALOG_DB_HOST: ${CATALOG_DB_HOST} 
+      CATALOG_DB_USER: ${CATALOG_DB_USER} 
+      CATALOG_DB_PASS: ${CATALOG_DB_PASS} 
+      CATALOG_DEBUG_MODE: ${CATALOG_DEBUG_MODE}
+    ports:
+      - "5000:5000"
+  
+  linx_recommended:
+    build: ./recommendations-api/.
+    environment:
+      REC_API_PORT: ${REC_API_PORT} 
+      RECOMM_URL: ${RECOMM_URL} 
+      RECOMM_MOST_POPULAR_PATH: ${RECOMM_MOST_POPULAR_PATH} 
+      RECOMM_PRICE_REDUCTION_PATH: ${RECOMM_PRICE_REDUCTION_PATH} 
+      CATALOG_HOST: ${CATALOG_HOST} 
+      CATALOG_API_PORT: ${CATALOG_API_PORT} 
+      CATALOG_PROTOCOL: ${CATALOG_PROTOCOL}
+      RECOMM_DEBUG_MODE: ${RECOMM_DEBUG_MODE}
+      CATALOG_PRODUCT_ROUTE: ${CATALOG_PRODUCT_ROUTE}
+    ports:
+      - "5051:5051"

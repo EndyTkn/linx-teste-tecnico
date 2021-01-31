@@ -6,8 +6,16 @@ const env = require('./config/env');
 require('./models/Product');
 
 const app = restify.createServer();
+app.use(
+    function crossOrigin(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        return next();
+    }
+);
 app.use(restify.plugins.jsonBodyParser());
 app.use(restify.plugins.queryParser({mapParams: true}));
+
 routes(app);
 
 app.on('restifyError', (req, res, err) => {  
@@ -34,6 +42,9 @@ function start() {
 }
 
 function connect() {
+    if (!env.DB_NAME) {
+        console.log('NO DATABASE ENVIRONMENT VAR NAME!');
+    } 
     mongoose.connection
         .on('error', console.log)
         .on('disconnect', connect)
@@ -41,7 +52,7 @@ function connect() {
 
     const auth = env.DB_USER?env.DB_USER+':'+env.DB_PASS+'@':"";
     const config = `mongodb://${auth}${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}`;
-    console.log(config)
+    console.log(auth, config)
     return mongoose.connect(config, {
         keepAlive: 1,
         useNewUrlParser: true,

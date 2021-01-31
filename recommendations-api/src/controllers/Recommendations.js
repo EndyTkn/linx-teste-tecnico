@@ -8,7 +8,7 @@ class Recommendations {
             if(maxProducts < 10) maxProducts = 10;
             let products = await RecommLib.getRecomm(maxProducts);
             
-            res.send(200, products);
+            res.json(200, products);
         } catch(error) {
             next(error);
         }

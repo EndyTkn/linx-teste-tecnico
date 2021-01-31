@@ -12,14 +12,12 @@ class ProductController {
         try {
             if (!idParam)
                 throw (new errors.BadRequestError({statusCode: 400,}, 'valid id param is required!'));
+            if (resFormat != 'compact' && resFormat != 'complete')
+                throw (new errors.BadRequestError({statusCode: 400}, 'a response format is required'))
 
             ids = idParam.split(',');
-            if (resFormat === 'compact')
-                prod = await Product.compactFindList(ids);
-            else if (resFormat === 'complete')
-                prod = await Product.find({id: {'$in': ids}}).exec();
-            else
-                throw (new errors.BadRequestError({statusCode: 400}, 'a response format is required'))
+
+            prod = await Product.findByList(ids, resFormat === 'compact');
             if (prod.length === 1) return res.send(prod[0]);
             return res.send(prod);
         } catch (error) {

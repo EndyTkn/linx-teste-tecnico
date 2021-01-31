@@ -11,20 +11,34 @@ ProductSchema.path('id').validate(function(id) {
 }, 'ID cannot be null');
 
 
+function orderFindedProducts(idsList, products, compact) {
+    let prodMaps = {}, res = [];
+    if(compact === true) {
+        for (let product of products) {
+            var {name, price, status, categories} = product.props;
+            prodMaps[product.id] = {name, price, status, categories}
+        }
+    }
+    else for (let product of products)  {
+        prodMaps[product.id] = product;
+    }
+    for (let id of idsList) 
+        if (prodMaps[id] != null) res.push(prodMaps[id]);
+    
+    return res;
+    
+}
+
 ProductSchema.statics = {
-    compactFindList: function(ids) {
+    findByList: function(ids, isCompact) {
         return new Promise(async (resolve, reject) => {
             try {
-                let compactProducts;
                 let productsInfo = await this.find({id: {'$in': ids}}).exec()
+
                 if (productsInfo.length === 0)
                     reject(new errors.ResourceNotFoundError({statusCode: 404,}, "products not found"));
 
-                compactProducts = productsInfo.map((prod) => {
-                    var {name, price, status, categories} = prod.props;
-                    return {name, price, status, categories};  
-                })
-                resolve(compactProducts);   
+                resolve(orderFindedProducts(ids, productsInfo, isCompact));   
             } catch(error) {
                 reject(error);
             }

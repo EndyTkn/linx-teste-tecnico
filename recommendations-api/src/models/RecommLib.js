@@ -11,7 +11,7 @@ class RecommLib {
 
             const priceRedProdsIDs = priceRedProds.map(prod => prod.recommendedProduct.id);
             const mostPopProdsIDs = mostPopProds.map(prod => prod.recommendedProduct.id);
-
+            
             const priceReductionList = await this.getProdInformations(priceRedProdsIDs);
             const mostPopList = await this.getProdInformations(mostPopProdsIDs);
             
@@ -39,6 +39,7 @@ class RecommLib {
     static async getProdInformations(ids) {
         try {
             const url = `${env.CATALOG_PROTOCOL}://${env.CATALOG_HOST}:${env.CATALOG_PORT}${env.CATALOG_PRODUCT_ROUTE}`;
+            console.log(`${url}?id=${ids.join(',')}`);
             const prods = (await axios.get(`${url}?id=${ids.join(',')}`)).data;
             return prods;
         } catch(error) {

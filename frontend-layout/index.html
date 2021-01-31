@@ -4,32 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-  <script src="./index.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" href="./src/css/index.scss">
 </head>
 
 <body>
   <div class="container">
-    <div class="showcase">
+    <div class="section">
       <h1 class="title">
         Vitrine de mais populares
       </h1>
-      <div class="products">
-        <h2 class="comment">Mais Vendidos</h2>
-        <div class="products" id="mostPopular">
-
-        </div>
+      <h2 class="comment">Mais Vendidos</h2>
+      <div class="carousel">
+        <button id="btnMPLeft">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="products" id="mostPopular"></div>
+        <button id="btnMPRight">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="directionals">
       </div>
     </div>
-    <div class="showcase">
-      <h1 class="title">
-        Produtos que baixaram de preço
-      </h1>
-      <div class="products" id="priceReduction">
 
+    <div class="section">
+      <h1 class="title">
+        Vitrine de Ofertas
+      </h1>
+      <h2 class="comment">Produtos que baixaram de preço</h2>
+      <div class="carousel">
+        <button id="btnPRLeft">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="products" id="priceReduction"></div>
+        <button id="btnPRRight">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
     </div>
   </div>
-  <script src="src/js/index.js"></script>
 </body>
+<script src="src/js/index.js"></script>
 
 </html>
