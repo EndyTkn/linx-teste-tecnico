@@ -51,7 +51,6 @@ ou
 npm run dev
 ```
 
-observações: caso a rede criada pelo docker-compose já esteja sendo utilizada, há casos que é necessário configurar manualmente a rede, modificando as variáveis CATALOG_HOST e CATALOG_DB_HOST no arquivo .env, também vai ser preciso modificar no docker-compose um novo ip no seção de network.
 ## API de Catálogo
 
 A api de catálogo tem a funcionalidade de disponibilizar informações de um catálogo de produtos fornecido pelo teste. Por meio das rotas é possível requisitar os produtos com informações completas ou compactadas (apenas nome, preço, estado e categorias). Os dados foram guardados no banco não relacional Mongo e o aplicativo foi desenvolvido com o framework restify que possui ferramentas para apoiar a construção de um servidor REST.
